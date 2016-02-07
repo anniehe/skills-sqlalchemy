@@ -13,6 +13,7 @@ db = SQLAlchemy()
 # Part 1: Compose ORM
 
 class Model(db.Model):
+    """Car model."""
 
     __tablename__ = "models"
 
@@ -27,8 +28,15 @@ class Model(db.Model):
 
     brand = db.relationship("Brand", backref="models")
 
+    # def __repr__(self):
+    #     """Show info about car model."""
+
+    #     return "<Model id=%s year=%s brand_name=%s name=%s>" % (
+    #         self.id, self.year, self.brand_name, self.name)
+
 
 class Brand(db.Model):
+    """Car brand."""
 
     __tablename__ = "brands"
 
@@ -39,6 +47,12 @@ class Brand(db.Model):
     founded = db.Column(db.Integer, nullable=True)
     headquarters = db.Column(db.String(50), nullable=True)
     discontinued = db.Column(db.Integer, nullable=True)
+
+    # def __repr__(self):
+    #     """Show info about car brand."""
+
+    #     return "<Brand id=%s name=%s founded=%s headquarters=%s discontinued=%s>" % (
+    #         self.id, self.name, self.founded, self.headquarters, self.discontinued)
 
 
 # End Part 1
@@ -59,7 +73,7 @@ def connect_to_db(app):
 
     # Configure to use our SQLite database
     app.config['SQLALCHEMY_DATABASE_URI'] = 'postgres:///cars'
-    app.config['SQLALCHEMY_ECHO'] = True
+    app.config['SQLALCHEMY_ECHO'] = False
     db.app = app
     db.init_app(app)
 
